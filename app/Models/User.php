@@ -10,7 +10,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
     protected $fillable = [
         'name', 'profile_photo', 'gender', 'email', 'phone', 'password',
     ];
@@ -23,8 +24,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'course_user');
+        return $this->hasMany(Course::class, 'user_id'); 
+    }
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'created_by');
     }
 }

@@ -1,0 +1,77 @@
+[2024-07-02 21:09:32] local.ERROR: There are no commands defined in the "storge" namespace.
+
+Did you mean this?
+    storage {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"storge\" namespace.
+
+Did you mean this?
+    storage at G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php:669)
+[stacktrace]
+#0 G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('storge')
+#1 G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('storge:link')
+#2 G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 G:\\largon\\laragon\\www\\test-course\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2024-07-02 21:19:39] local.ERROR: file_put_contents(G:\largon\laragon\www\test-course\storage\framework/sessions/3Rwj4FF1idoU9v5MVKtMXBAGWiKy8QrvbeQMW6uD): Failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): file_put_contents(G:\\largon\\laragon\\www\\test-course\\storage\\framework/sessions/3Rwj4FF1idoU9v5MVKtMXBAGWiKy8QrvbeQMW6uD): Failed to open stream: No such file or directory at G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:204)
+[stacktrace]
+#0 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(255): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_put_conten...', 'G:\\\\largon\\\\larag...', 204)
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'file_put_conten...', 'G:\\\\largon\\\\larag...', 204)
+#2 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(204): file_put_contents('G:\\\\largon\\\\larag...', 'a:4:{s:6:\"_toke...', 2)
+#3 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\FileSessionHandler.php(90): Illuminate\\Filesystem\\Filesystem->put('G:\\\\largon\\\\larag...', 'a:4:{s:6:\"_toke...', true)
+#4 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Store.php(172): Illuminate\\Session\\FileSessionHandler->write('3Rwj4FF1idoU9v5...', 'a:4:{s:6:\"_toke...')
+#5 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(245): Illuminate\\Session\\Store->save()
+#6 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(130): Illuminate\\Session\\Middleware\\StartSession->saveSession(Object(Illuminate\\Http\\Request))
+#7 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#8 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#9 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#10 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#11 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#13 G:\\largon\\laragon\\www\\test-course\\vendor\\filament\\filament\\src\\Http\\Middleware\\SetUpPanel.php(19): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Filament\\Http\\Middleware\\SetUpPanel->handle(Object(Illuminate\\Http\\Request), Object(Closure), Object(Filament\\Panel))
+#15 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#17 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#18 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#19 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#20 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#21 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#22 G:\\largon\\laragon\\www\\test-course\\vendor\\livewire\\livewire\\src\\Features\\SupportDisablingBackButtonCache\\DisableBackButtonCacheMiddleware.php(19): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Livewire\\Features\\SupportDisablingBackButtonCache\\DisableBackButtonCacheMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#40 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#41 G:\\largon\\laragon\\www\\test-course\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#42 {main}
+"} 
+[2024-07-02 22:06:44] local.ERROR: Command "optomize" is not defined.
+
+Did you mean one of these?
+    optimize
+    optimize:clear {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"optomize\" is not defined.
+
+Did you mean one of these?
+    optimize
+    optimize:clear at G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php:737)
+[stacktrace]
+#0 G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find('optomize')
+#1 G:\\largon\\laragon\\www\\test-course\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 G:\\largon\\laragon\\www\\test-course\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 G:\\largon\\laragon\\www\\test-course\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 

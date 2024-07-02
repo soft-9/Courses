@@ -10,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class UserResource extends Resource
 {
@@ -20,34 +19,12 @@ class UserResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-            if ($user->hasRole('super admin')) {
-                \Log::info('User has super admin role - shouldRegisterNavigation');
-                return true;
-            } else {
-                \Log::info('User does not have super admin role - shouldRegisterNavigation');
-            }
-        } else {
-            \Log::info('User not authenticated - shouldRegisterNavigation');
-        }
-        return false;
+        return Auth::check() && Auth::user()->hasRole('super admin');
     }
 
     public static function canCreate(): bool
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-            if ($user->hasRole('super admin')) {
-                \Log::info('User has super admin role - canCreate');
-                return true;
-            } else {
-                \Log::info('User does not have super admin role - canCreate');
-            }
-        } else {
-            \Log::info('User not authenticated - canCreate');
-        }
-        return false;
+        return Auth::check() && Auth::user()->hasRole('super admin');
     }
 
     public static function form(Form $form): Form
@@ -55,7 +32,7 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\FileUpload::make('profile_photo')->image(),
+                Forms\Components\FileUpload::make('profile_photo')->disk('user_photos')->image(),
                 Forms\Components\Select::make('gender')
                     ->options([
                         'male' => 'Male',
@@ -91,7 +68,9 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\ImageColumn::make('profile_photo')->disk('public'),
+                Forms\Components\FileUpload::make('profile_photo')
+                ->disk('user_photos')
+                ->image(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('phone'),
                 Tables\Columns\TextColumn::make('roles.name')->label('Roles')->limit(50),
