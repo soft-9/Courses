@@ -9,7 +9,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class UserResource extends Resource
 {
@@ -17,22 +21,15 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function shouldRegisterNavigation(): bool
-    {
-        return Auth::check() && Auth::user()->hasRole('super admin');
-    }
-
-    public static function canCreate(): bool
-    {
-        return Auth::check() && Auth::user()->hasRole('super admin');
-    }
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\FileUpload::make('profile_photo')->disk('user_photos')->image(),
+                Forms\Components\FileUpload::make('profile_photo')
+                    ->disk('public')
+                    ->directory('user_photos')
+                    ->image(),
                 Forms\Components\Select::make('gender')
                     ->options([
                         'male' => 'Male',
@@ -55,11 +52,9 @@ class UserResource extends Resource
                     ->password()
                     ->required()
                     ->minLength(8),
-                Forms\Components\Select::make('roles')
-                    ->multiple()
-                    ->relationship('roles', 'name')
-                    ->preload()
-                    ->required(),
+                Forms\Components\TextInput::make('search')
+                    ->label('Search')
+                    ->placeholder('Search by name or email'),
             ]);
     }
 
@@ -67,18 +62,20 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Forms\Components\FileUpload::make('profile_photo')
-                ->disk('user_photos')
-                ->image(),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('roles.name')->label('Roles')->limit(50),
+                TextColumn::make('name'),
+                TextColumn::make('email'),
+                TextColumn::make('phone'),
             ])
-            ->filters([])
+            ->filters([
+                Tables\Filters\SelectFilter::make('gender')
+                    ->options([
+                        'male' => 'Male',
+                        'female' => 'Female',
+                    ]),
+            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make()->icon('heroicon-o-pencil'),
+                DeleteAction::make()->icon('heroicon-o-trash'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -86,10 +83,7 @@ class UserResource extends Resource
                 ]),
             ])
             ->headerActions([
-                Tables\Actions\Action::make('createUser')
-                    ->label('Create User')
-                    ->url('http://test-course.test/admin/users/create')
-                    ->color('primary')
+                CreateAction::make('createUser')
                     ->icon('heroicon-o-plus'),
             ]);
     }

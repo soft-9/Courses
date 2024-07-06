@@ -29,13 +29,13 @@ class VideoResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('url')
                     ->url()
-                    ->requiredWith(['video_source'])
+                    ->required(fn ($get) => $get('video_source') === 'url')
                     ->visible(fn ($get) => $get('video_source') === 'url'),
                 Forms\Components\FileUpload::make('file')
                     ->disk('videos')
                     ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime'])
-                    ->visible(fn ($get) => $get('video_source') === 'file')
-                    ->required(fn ($get) => $get('video_source') === 'file'),
+                    ->required(fn ($get) => $get('video_source') === 'file')
+                    ->visible(fn ($get) => $get('video_source') === 'file'),
                 Forms\Components\Textarea::make('description')->required(),
                 Forms\Components\Select::make('course_id')
                     ->relationship('course', 'title')
