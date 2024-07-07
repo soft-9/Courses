@@ -1,36 +1,45 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const CommentForm = ({ onSubmit }) => {
-    const [comment, setComment] = useState('');
-    const [name, setName] = useState('');
-    const [gender, setGender] = useState('male');
+const CommentForm = ({ videoId, currentUser, onCommentAdded }) => {
+    const [newComment, setNewComment] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleCommentChange = (e) => {
+        setNewComment(e.target.value);
+    };
+
+    const handleSubmitComment = async (e) => {
         e.preventDefault();
-        onSubmit({ comment, name, gender });
-        setComment('');
-        setName('');
-        setGender('male');
+        try {
+            const response = await axios.post('http://test-course.test/api/comments', {
+                comment: newComment,
+                video_id: videoId,
+                name: currentUser.name,
+                gender: currentUser.gender
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("authToken")}`
+                }
+            });
+            onCommentAdded(response.data);
+            setNewComment('');
+        } catch (error) {
+            console.error('There was an error submitting the comment!', error);
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Comment:</label>
-                <textarea value={comment} onChange={(e) => setComment(e.target.value)} required />
-            </div>
-            <div>
-                <label>Name:</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div>
-                <label>Gender:</label>
-                <select value={gender} onChange={(e) => setGender(e.target.value)}>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <button type="submit">Submit</button>
+        <form onSubmit={handleSubmitComment} className="mb-4">
+            <textarea
+                value={newComment}
+                onChange={handleCommentChange}
+                className="w-full p-2 border border-gray-300 rounded-lg"
+                placeholder="Add a comment..."
+                required
+            />
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2">
+                Submit
+            </button>
         </form>
     );
 };

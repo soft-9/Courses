@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import api from "./helpers/api";
+import axios from "axios";
 import Courses from "./components/Courses";
 import CourseDetails from "./components/CourseDetails";
 import VideoPlayer from "./components/VideoPlayer";
@@ -16,10 +16,10 @@ const App = () => {
         const fetchUser = async () => {
             if (token) {
                 try {
-                    const response = await api.get("/user", {
+                    const response = await axios.get('http://test-course.test/api/user', {
                         headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
+                            Authorization: `Bearer ${token}`
+                        }
                     });
                     setUser(response.data);
                 } catch (error) {
@@ -50,10 +50,10 @@ const App = () => {
             <Header token={token} setToken={handleSetToken} handleLogout={handleLogout} />
             <Routes>
                 <Route path="/login" element={<Login setToken={handleSetToken} />} />
-                <Route path="/register" element={<Register setToken={setToken} />} />
+                <Route path="/register" element={<Register setToken={handleSetToken} />} />
                 <Route path="/" element={<Courses />} />
                 <Route path="/course/:courseId" element={<CourseDetails />} />
-                <Route path="/course/:courseId/video/:videoId" element={<VideoPlayer />} />
+                <Route path="/course/:courseId/video/:videoId" element={<VideoPlayer currentUser={user} token={token} />} />
                 <Route
                     path="/"
                     element={

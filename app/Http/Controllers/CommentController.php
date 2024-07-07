@@ -8,60 +8,71 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only(['store', 'destroy']);
+    }
+
     public function index($videoId)
     {
-        return Comment::where('video_id', $videoId)->get();
+        return Comment::where('video_id', $videoId)->with('user')->get();
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'comment' => 'required',
+            'comment' => 'required|string|max:255',
             'video_id' => 'required|exists:videos,id'
         ]);
 
-        if (!Auth::check()) {
+        $user = $request->user();
+        if (!$user) {
             return response()->json(['error' => 'You must be logged in to post a comment'], 403);
         }
 
         $comment = Comment::create([
             'comment' => $request->comment,
             'video_id' => $request->video_id,
-            'name' => Auth::user()->name,
-            'gender' => Auth::user()->gender,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'gender' => $user->gender,
+            'profile_picture' => $user->profile_photo
         ]);
 
         return response()->json($comment, 201);
     }
 
-    public function update(Request $request, $id)
+    public function destroy($id)
     {
-        $request->validate([
-            'comment' => 'required',
-            'name' => 'required',
-            'gender' => 'required|in:male,female',
-        ]);
-
-        $comment = Comment::findOrFail($id);
-        $comment->update($request->all());
-
-        return $comment;
-    }
-
-    public function destroy(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required'
-        ]);
-
         $comment = Comment::findOrFail($id);
 
-        if ($comment->name !== $request->name) {
+        $user = auth()->user();
+        if (!$user || $comment->user_id !== $user->id) {
             return response()->json(['error' => 'You are not allowed to delete this comment.'], 403);
         }
 
         $comment->delete();
 
-        return response()->noContent();
+        return response()->json(['message' => 'Comment deleted'], 200);
     }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:255'
+        ]);
+
+        $comment = Comment::findOrFail($id);
+
+        $user = auth()->user();
+        if (!$user || $comment->user_id !== $user->id) {
+            return response()->json(['error' => 'You are not allowed to update this comment.'], 403);
+        }
+
+        $comment->update([
+            'comment' => $request->comment
+        ]);
+
+        return response()->json($comment, 200);
+    }
+
 }

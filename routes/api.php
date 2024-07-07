@@ -17,11 +17,11 @@ Route::get('/videos/{id}', [VideoController::class, 'show']);
 
 // comments
 Route::get('/videos/{videoId}/comments', [CommentController::class, 'index']);
-Route::post('/comments', [CommentController::class, 'store']);
-Route::put('/comments/{id}', [CommentController::class, 'update']);
-Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
+Route::middleware('auth:sanctum')->post('/comments', [CommentController::class, 'store']);
+Route::middleware('auth:sanctum')->put('/comments/{id}', [CommentController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('/comments/{id}', [CommentController::class, 'destroy']);
 
-//auth
+// auth
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'user']);

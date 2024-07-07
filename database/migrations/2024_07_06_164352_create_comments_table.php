@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('gender', ['male', 'female']);
             $table->foreignId('video_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('usersfrontend')->onDelete('cascade');
             $table->timestamps();
         });
     }
